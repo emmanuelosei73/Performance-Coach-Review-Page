@@ -237,7 +237,7 @@
   <div class="header-text">
     <div class="eyebrow">Performance Coach</div>
     <h1>Client Feedback</h1>
-    <p>A running record of what clients say after training or rehab sessions with me.</p>
+    <p>A real-time record of feedback from personal training, group circuits, online coaching and rehab clients.</p>
 
     <div class="counter-row" id="counterRow"></div>
   </div>
@@ -260,38 +260,48 @@
 <script>
   // ============================================================
   // TO ADD A NEW REVIEW: just add a new object to this array.
-  // category options: "rehab", "strength", "coaching"
+  // categories: an array, can include one or more of:
+  // "rehab", "strength", "coaching"
+  // The FIRST category listed is the one shown as the tag on the
+  // card. Any additional categories still make the review appear
+  // when that filter is selected, they just aren't displayed.
   // ============================================================
   const reviews = [
     {
       name: "Frankie",
       quote: "I've had massive improvements in the shoulder, a lot less pain and more mobility. I've been doing it (shoulder strengthening exercises in the gym) three times a week for about two months, and it's a lot better.",
-      category: "rehab",
+      categories: ["rehab"],
       help: "Shoulder rehab programme"
     },
     {
       name: "Jade",
       quote: "I can't wait to do this week's METCON, it looks a lot of fun. The shoulder strengthening is helping, so I'm glad to continue with it.",
-      category: "strength",
+      categories: ["strength", "rehab"],
       help: "METCON & shoulder strengthening"
     },
     {
       name: "Faith",
       quote: "Thanks again for the workout routine, I actually enjoyed it when I went.",
-      category: "coaching",
+      categories: ["coaching"],
       help: "Programmed training routine"
     },
     {
       name: "Mo",
       quote: "Since I've started training with him, I've noticed a real difference in my physique. My hips had always been injury-prone, but after three weeks of following the step-by-step exercises, my hip feels good as new. I don't know how to thank him.",
-      category: "rehab",
+      categories: ["rehab"],
       help: "Hip injury rehab programme"
     },
     {
       name: "Charlie",
       quote: "This plan was just what I needed to achieve my goals in the perfect timing. I also found the plan easy to fit into my daily routine which was essential for me at this point. What bloody legend! The big day is tomorrow, I just wanted to say thank you again for all your help!",
-      category: "rehab",
+      categories: ["rehab"],
       help: "Return to running after knee pain"
+    },
+    {
+      name: "Kirsten",
+      quote: "Emmanuel is an awesome instructor. Sessions begin and end on time, and stations are set up well in advance. He explains each exercise, ensures correct form, and brings so much positivity and knowledge to every class. Every session is fresh, creative, and engaging.",
+      categories: ["coaching"],
+      help: "Group circuit sessions"
     }
   ];
 
@@ -305,15 +315,15 @@
   let activeFilter = "all";
 
   function renderCounters(){
-    const total = reviews.length;
+    const count = activeFilter === "all" ? reviews.length : reviews.filter(r => r.categories.includes(activeFilter)).length;
     const row = document.getElementById("counterRow");
     row.innerHTML = `
-      <div class="counter"><div class="num">${String(total).padStart(2,"0")}</div><div class="label">Reviews Logged</div></div>
+      <div class="counter"><div class="num">${String(count).padStart(2,"0")}</div><div class="label">Reviews Logged</div></div>
     `;
   }
 
   function renderFilters(){
-    const present = ["all", ...new Set(reviews.map(r => r.category))];
+    const present = ["all", ...new Set(reviews.flatMap(r => r.categories))];
     const nav = document.getElementById("filters");
     nav.innerHTML = present.map(cat => `
       <button class="tab ${cat === activeFilter ? 'active' : ''}" data-cat="${cat}">
@@ -325,6 +335,7 @@
       btn.addEventListener("click", () => {
         activeFilter = btn.dataset.cat;
         renderFilters();
+        renderCounters();
         renderReviews();
       });
     });
@@ -332,12 +343,12 @@
 
   function renderReviews(){
     const list = document.getElementById("reviewList");
-    const filtered = activeFilter === "all" ? reviews : reviews.filter(r => r.category === activeFilter);
+    const filtered = activeFilter === "all" ? reviews : reviews.filter(r => r.categories.includes(activeFilter));
     list.innerHTML = filtered.map(r => `
       <div class="review">
         <div class="review-meta">
           <div class="review-name">${r.name}</div>
-          <div class="review-tag">${categoryLabels[r.category] || r.category}</div>
+          <div class="review-tag">${categoryLabels[r.categories[0]] || r.categories[0]}</div>
         </div>
         <div>
           <div class="review-quote">${r.quote}</div>
