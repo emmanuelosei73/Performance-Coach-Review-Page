@@ -183,6 +183,29 @@
   }
   .review-quote::before{ content: "“"; color: var(--muted); }
   .review-quote::after{ content: "”"; color: var(--muted); }
+  .review-snapshot{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 14px;
+    padding: 12px 14px;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+  .review-snapshot .row{ display:flex; gap: 6px; }
+  .review-snapshot .row-label{
+    color: var(--accent);
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+    padding-top: 1px;
+  }
+  .review-snapshot .row-text{ color: #c9c9c3; }
   .review-help{
     margin-top: 10px;
     font-size: 12.5px;
@@ -271,7 +294,9 @@
       name: "Frankie",
       quote: "I've had massive improvements in the shoulder, a lot less pain and more mobility. I've been doing it (shoulder strengthening exercises in the gym) three times a week for about two months, and it's a lot better.",
       categories: ["rehab"],
-      help: "Shoulder rehab programme"
+      help: "Shoulder rehab programme",
+      starting: "Persistent shoulder pain and limited mobility.",
+      result: "2 months in: pain significantly reduced, mobility regained, training 3x/week."
     },
     {
       name: "Jade",
@@ -351,6 +376,11 @@
           <div class="review-tag">${categoryLabels[r.categories[0]] || r.categories[0]}</div>
         </div>
         <div>
+          ${r.starting || r.result ? `
+          <div class="review-snapshot">
+            ${r.starting ? `<div class="row"><span class="row-label">Starting point</span><span class="row-text">${r.starting}</span></div>` : ""}
+            ${r.result ? `<div class="row"><span class="row-label">Result</span><span class="row-text">${r.result}</span></div>` : ""}
+          </div>` : ""}
           <div class="review-quote">${r.quote}</div>
           ${r.help ? `<div class="review-help">Helped with: <span>${r.help}</span></div>` : ""}
         </div>
