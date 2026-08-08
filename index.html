@@ -6,21 +6,28 @@
 <title>client feedback</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
   :root{
-    --bg: #0a0a0a;
+    --bg: #08090a;
     --bg-raised: #131313;
     --line: #232323;
     --text: #f2f1ec;
     --muted: #8a8a86;
     --accent: #a3ff6b;
+    --card-bg: rgba(255,255,255,0.03);
+    --card-border: rgba(255,255,255,0.08);
+    --card-border-hover: rgba(255,255,255,0.18);
+    --muted2: #a1a1aa;
   }
   *{ margin:0; padding:0; box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
   body{
-    background: var(--bg);
+    background:
+      radial-gradient(ellipse 900px 500px at 70% -5%, rgba(16,185,129,0.10), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 10% 10%, rgba(80,100,140,0.07), transparent 60%),
+      var(--bg);
     color: var(--text);
     font-family:'Inter', sans-serif;
     -webkit-font-smoothing:antialiased;
@@ -31,7 +38,7 @@
   /* ---------- header ---------- */
   header{
     padding: 64px 24px 40px;
-    max-width: 720px;
+    max-width: 960px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -45,7 +52,7 @@
     height: 148px;
     border-radius: 16px;
     overflow: hidden;
-    border: 1px solid var(--line);
+    border: 1px solid rgba(255,255,255,0.08);
   }
   .header-photo img{
     width: 100%;
@@ -58,7 +65,7 @@
     .header-photo{ width: 84px; height: 96px; }
   }
   .eyebrow{
-    font-family:'Space Grotesk', sans-serif;
+    font-family:'Plus Jakarta Sans', sans-serif;
     font-size: 13px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -76,7 +83,7 @@
     display:inline-block;
   }
   h1{
-    font-family:'Space Grotesk', sans-serif;
+    font-family:'Plus Jakarta Sans', sans-serif;
     font-weight:700;
     font-size: clamp(32px, 7vw, 52px);
     line-height: 1.05;
@@ -95,25 +102,58 @@
     gap: 28px;
     margin-top: 36px;
     flex-wrap: wrap;
+    align-items: center;
   }
   .counter{
-    font-family:'Space Grotesk', sans-serif;
+    font-family: 'Plus Jakarta Sans', monospace;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    border-radius: 100px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
   }
   .counter .num{
-    font-size: 28px;
+    font-family: 'Roboto Mono', 'Courier New', monospace;
+    font-size: 16px;
     font-weight:700;
     color: var(--text);
+    letter-spacing: 0.02em;
   }
   .counter .label{
+    font-family: 'Roboto Mono', 'Courier New', monospace;
     font-size: 11px;
-    color: var(--muted);
+    color: var(--muted2);
     text-transform: uppercase;
     letter-spacing: 0.08em;
+  }
+  .live-dot{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family: 'Roboto Mono', 'Courier New', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    color: #10B981;
+    text-transform: uppercase;
+  }
+  .live-dot::before{
+    content:"";
+    width:7px; height:7px;
+    border-radius:50%;
+    background:#10B981;
+    box-shadow: 0 0 8px rgba(16,185,129,0.8);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%, 100%{ opacity:1; transform: scale(1); }
+    50%{ opacity:0.4; transform: scale(0.75); }
   }
 
   /* ---------- filter tabs ---------- */
   nav.filters{
-    max-width: 720px;
+    max-width: 960px;
     margin: 0 auto;
     padding: 0 24px 32px;
     display:flex;
@@ -123,39 +163,57 @@
     padding-bottom: 28px;
   }
   .tab{
-    font-family:'Space Grotesk', sans-serif;
+    font-family:'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
     font-size: 13px;
     letter-spacing: 0.02em;
     padding: 8px 16px;
     border-radius: 100px;
-    border: 1px solid var(--line);
-    background: transparent;
-    color: var(--muted);
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.02);
+    color: var(--muted2);
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: all 0.2s ease;
   }
-  .tab:hover{ border-color:#3a3a3a; color: var(--text); }
+  .tab:hover{ border-color: rgba(255,255,255,0.25); color: var(--text); background: rgba(255,255,255,0.05); }
   .tab.active{
-    background: var(--text);
-    color: var(--bg);
-    border-color: var(--text);
+    background: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+    box-shadow: 0 0 15px rgba(255,255,255,0.25);
   }
 
   /* ---------- reviews list ---------- */
   main{
-    max-width: 720px;
+    max-width: 960px;
     margin: 0 auto;
     padding: 40px 24px 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  @media (min-width: 768px){
+    main{ grid-template-columns: repeat(2, 1fr); }
   }
   .review{
-    padding: 32px 0;
-    border-bottom: 1px solid var(--line);
+    padding: 20px;
+    border-radius: 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     display: grid;
-    grid-template-columns: 96px 1fr;
-    gap: 24px;
+    grid-template-columns: 88px 1fr;
+    gap: 16px;
     animation: fadeIn 0.4s ease both;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   }
-  .review:last-child{ border-bottom:none; }
+  .review:hover{
+    transform: translateY(-2px);
+    border-color: var(--card-border-hover);
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+  }
   @keyframes fadeIn{
     from{ opacity:0; transform: translateY(6px); }
     to{ opacity:1; transform: translateY(0); }
@@ -166,46 +224,51 @@
     gap:6px;
   }
   .review-name{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:700;
+    font-family:'Plus Jakarta Sans', sans-serif;
+    font-weight:600;
     font-size: 16px;
   }
   .review-tag{
     font-size: 11px;
-    color: var(--accent);
+    color: var(--muted2);
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
   }
   .review-quote{
-    font-size: 16px;
-    line-height: 1.65;
-    color: #dcdbd5;
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: #ffffff;
   }
   .review-quote::before{ content: "“"; color: var(--muted); }
   .review-quote::after{ content: "”"; color: var(--muted); }
   .review-snapshot{
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    margin-bottom: 14px;
-    padding: 12px 14px;
-    background: var(--bg-raised);
-    border: 1px solid var(--line);
-    border-radius: 10px;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 14px 16px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
     font-size: 12.5px;
     line-height: 1.5;
   }
-  .review-snapshot .row{ display:flex; gap: 6px; }
+  .review-snapshot .row{ display:flex; gap: 8px; align-items: baseline; }
   .review-snapshot .row-label{
-    color: var(--accent);
-    font-family:'Space Grotesk', sans-serif;
+    display: inline-block;
+    color: #10B981;
+    background: rgba(16,185,129,0.12);
+    border: 1px solid rgba(16,185,129,0.35);
+    padding: 2px 9px;
+    border-radius: 100px;
+    font-family:'Plus Jakarta Sans', sans-serif;
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.04em;
     flex-shrink: 0;
-    padding-top: 1px;
   }
   .review-snapshot .row-text{ color: #c9c9c3; }
+  .review-snapshot .row-text strong{ color:#ffffff; font-weight:700; }
   .review-help{
     margin-top: 10px;
     font-size: 12.5px;
@@ -224,7 +287,7 @@
 
   /* ---------- cta ---------- */
   .cta{
-    max-width: 720px;
+    max-width: 960px;
     margin: 40px auto 0;
     padding: 56px 24px 80px;
     text-align:center;
@@ -237,7 +300,7 @@
   }
   .cta-btn{
     display:inline-block;
-    font-family:'Space Grotesk', sans-serif;
+    font-family:'Plus Jakarta Sans', sans-serif;
     letter-spacing: 0.02em;
     font-size: 15px;
     font-weight: 500;
@@ -301,7 +364,7 @@
       categories: ["rehab"],
       help: "Shoulder rehab",
       starting: "Persistent shoulder pain & restricted mobility.",
-      result: "Significantly reduced pain & mobility restored (achieved after 2 months of consistent rehab)."
+      result: "Significantly reduced pain & mobility restored (achieved after <strong>2 months</strong> of consistent rehab, training <strong>3x/week</strong>)."
     },
     {
       name: "Jade",
@@ -348,7 +411,8 @@
     const count = activeFilter === "all" ? reviews.length : reviews.filter(r => r.categories.includes(activeFilter)).length;
     const row = document.getElementById("counterRow");
     row.innerHTML = `
-      <div class="counter"><div class="num">${String(count).padStart(2,"0")}</div><div class="label">Reviews Logged</div></div>
+      <div class="counter"><span class="num">${String(count).padStart(2,"0")}</span><span class="label">Reviews Logged</span></div>
+      <span class="live-dot">Live Log</span>
     `;
   }
 
