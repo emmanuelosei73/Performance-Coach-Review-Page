@@ -212,6 +212,11 @@
     color: var(--muted);
   }
   .review-help span{ color: #b5b5af; }
+  .review-help .help-label{
+    font-variant: small-caps;
+    letter-spacing: 0.03em;
+    color: var(--muted);
+  }
 
   @media (max-width: 520px){
     .review{ grid-template-columns: 1fr; gap: 8px; }
@@ -294,9 +299,9 @@
       name: "Frankie",
       quote: "I've had massive improvements in the shoulder, a lot less pain and more mobility. I've been doing it (shoulder strengthening exercises in the gym) three times a week for about two months, and it's a lot better.",
       categories: ["rehab"],
-      help: "Shoulder rehab programme",
-      starting: "Persistent shoulder pain and limited mobility.",
-      result: "2 months in: pain significantly reduced, mobility regained, training 3x/week."
+      help: "Shoulder rehab",
+      starting: "Persistent shoulder pain & restricted mobility.",
+      result: "Significantly reduced pain & mobility restored (achieved after 2 months of consistent rehab)."
     },
     {
       name: "Jade",
@@ -308,13 +313,13 @@
       name: "Faith",
       quote: "Thanks again for the workout routine, I actually enjoyed it when I went.",
       categories: ["coaching"],
-      help: "Programmed training routine"
+      help: "Structured training routine"
     },
     {
       name: "Mo",
       quote: "Since I've started training with him, I've noticed a real difference in my physique. My hips had always been injury-prone, but after three weeks of following the step-by-step exercises, my hip feels good as new. I don't know how to thank him.",
       categories: ["rehab"],
-      help: "Hip injury rehab programme"
+      help: "Hip injury rehab"
     },
     {
       name: "Charlie",
@@ -378,11 +383,11 @@
         <div>
           ${r.starting || r.result ? `
           <div class="review-snapshot">
-            ${r.starting ? `<div class="row"><span class="row-label">Starting point</span><span class="row-text">${r.starting}</span></div>` : ""}
-            ${r.result ? `<div class="row"><span class="row-label">Result</span><span class="row-text">${r.result}</span></div>` : ""}
+            ${r.starting ? `<div class="row"><span class="row-label">Before</span><span class="row-text">${r.starting}</span></div>` : ""}
+            ${r.result ? `<div class="row"><span class="row-label">After</span><span class="row-text">${r.result}</span></div>` : ""}
           </div>` : ""}
           <div class="review-quote">${r.quote}</div>
-          ${r.help ? `<div class="review-help">Helped with: <span>${r.help}</span></div>` : ""}
+          ${r.help ? `<div class="review-help"><span class="help-label">Focus:</span> <span>${r.help}</span></div>` : ""}
         </div>
       </div>
     `).join("");
