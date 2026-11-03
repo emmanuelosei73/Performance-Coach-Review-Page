@@ -3,6 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Real client feedback from personal training, group circuits, online coaching and rehab with Emmanuel Osei-Asomah, Performance Coach.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Client Feedback | Emmanuel Osei-Asomah">
+<meta property="og:description" content="Real client feedback from personal training, group circuits, online coaching and rehab.">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#08090a">
 <title>client feedback</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -160,27 +166,14 @@
     max-width:1080px;
     margin:0 auto;
     padding:26px 24px 24px;
-    display:grid;
-    grid-template-columns:repeat(12,minmax(0,1fr));
+    display:flex;
     gap:18px;
-    align-items:start;
+    align-items:flex-start;
     position:relative;
   }
-  main::before, main::after{
-    content:"";
-    position:absolute;
-    border-radius:50%;
-    pointer-events:none;
-    filter:blur(.2px);
-    z-index:0;
-  }
-  main::before{ width:9px; height:9px; background:var(--accent); left:7%; top:11%; box-shadow:0 0 22px rgba(163,255,107,.55); animation:driftA 7s ease-in-out infinite; }
-  main::after{ width:6px; height:6px; background:#fff; opacity:.35; right:8%; top:38%; animation:driftB 8s ease-in-out infinite; }
-  @keyframes driftA{ 0%,100%{transform:translate(0,0)} 50%{transform:translate(24px,-16px)} }
-  @keyframes driftB{ 0%,100%{transform:translate(0,0)} 50%{transform:translate(-18px,22px)} }
+  main .col{ flex:1; min-width:0; display:flex; flex-direction:column; gap:18px; }
   .review{
-    grid-column:span 6;
-    min-height:220px;
+    min-height:0;
     padding:24px;
     border-radius:22px;
     background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.018));
@@ -196,25 +189,7 @@
     animation:fadeIn .45s ease both;
     transition:transform .28s cubic-bezier(.2,.8,.2,1), border-color .28s ease, box-shadow .28s ease;
   }
-  .review::before{
-    content:"";
-    position:absolute;
-    width:120px;
-    height:120px;
-    right:-58px;
-    top:-58px;
-    border-radius:50%;
-    border:1px solid rgba(163,255,107,.13);
-    transition:transform .35s ease;
-  }
-  .review:hover{ transform:translateY(-8px); border-color:rgba(255,255,255,.2); box-shadow:0 24px 60px -28px rgba(0,0,0,.82); }
-  .review:hover::before{ transform:scale(1.25); }
-  .review:nth-child(1){ grid-column:span 7; min-height:245px; }
-  .review:nth-child(2){ grid-column:span 5; margin-top:30px; }
-  .review:nth-child(3){ grid-column:span 5; }
-  .review:nth-child(4){ grid-column:span 7; margin-top:-22px; }
-  .review:nth-child(5){ grid-column:span 6; }
-  .review:nth-child(6){ grid-column:span 6; margin-top:24px; }
+  .review:hover{ transform:translateY(-4px); border-color:rgba(255,255,255,.2); box-shadow:0 24px 60px -28px rgba(0,0,0,.82); }
   @keyframes fadeIn{ from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
   .review-meta{ display:flex; align-items:center; justify-content:space-between; gap:14px; }
   .review-name{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:18px; letter-spacing:-.02em; }
@@ -245,8 +220,8 @@
   .review-help .help-label{ color:var(--muted); text-transform:uppercase; letter-spacing:.09em; font-size:10px; }
   .review-help span:last-child{ color:#c9c9c3; }
   @media (max-width:760px){
-    main{ grid-template-columns:1fr; gap:14px; padding-top:18px; }
-    .review,.review:nth-child(n){ grid-column:1; margin-top:0; min-height:auto; }
+    main{ gap:14px; padding-top:18px; }
+    main .col{ gap:14px; }
     .review{ padding:21px; gap:20px; }
   }
 
@@ -319,6 +294,18 @@
   }
   .site-link:hover{ color:var(--text); transform:translateY(-1px); }
   .site-link.active{ color:#0a0a0a; background:var(--accent); border-color:var(--accent); }
+  .nav-cta{
+    font:600 12px 'Plus Jakarta Sans',sans-serif;
+    color:var(--accent);
+    text-decoration:none;
+    padding:8px 14px;
+    border-radius:999px;
+    border:1px solid rgba(163,255,107,.45);
+    margin-left:4px;
+    white-space:nowrap;
+    transition:background .2s ease, transform .2s ease;
+  }
+  .nav-cta:hover{ background:rgba(163,255,107,.12); transform:translateY(-1px); }
   .page{ display:none; }
   .page.active{ display:block; animation:pageIn .35s ease both; }
   @keyframes pageIn{ from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none} }
@@ -357,7 +344,11 @@
   .about-statement p{ font:800 clamp(24px,4vw,42px)/1.08 'Plus Jakarta Sans',sans-serif; letter-spacing:-.04em; max-width:17ch; }
   .about-statement span{ color:var(--accent); }
   @media(max-width:640px){
-    .site-nav{ padding-top:16px; }
+    .site-nav{ padding-top:16px; flex-wrap:wrap; gap:10px 8px; }
+    .site-brand{ flex-basis:100%; white-space:nowrap; }
+    .site-links{ flex-wrap:nowrap; gap:4px; }
+    .site-link{ padding:8px 11px; white-space:nowrap; }
+    .nav-cta{ margin-left:0; }
     .site-brand{ font-size:12px; }
     .site-link{ padding:8px 11px; }
     .about-wrap{ padding-top:34px; }
@@ -376,6 +367,7 @@
   <div class="site-links">
     <button class="site-link active" data-page="feedback">Client Feedback</button>
     <button class="site-link" data-page="about">About Me</button>
+    <a class="nav-cta" href="https://www.instagram.com/kojomadeit/" target="_blank" rel="noopener">Work With Me</a>
   </div>
 </nav>
 
@@ -563,7 +555,7 @@
     else if (sortMode === "za") filtered.sort((a, b) => b.name.localeCompare(a.name));
     // "oldest" keeps the list order as written
 
-    list.innerHTML = filtered.map(r => `
+    const cardHTML = filtered.map(r => `
       <article class="review">
         <div class="review-meta">
           <div class="review-name">${r.name}</div>
@@ -572,8 +564,19 @@
         <div class="review-quote">${r.quote}</div>
         ${r.help ? `<div class="review-help"><span class="help-label">Focus</span><span>${r.help}</span></div>` : ""}
       </article>
-    `).join("");
+    `);
+
+    // Two independent columns on desktop (one on phones). Each card goes into
+    // whichever column is currently shorter, so there are no gaps.
+    const n = window.matchMedia("(max-width:760px)").matches ? 1 : 2;
+    list.innerHTML = Array.from({length:n}, () => '<div class="col"></div>').join("");
+    const cols = [...list.querySelectorAll(".col")];
+    cardHTML.forEach(html => {
+      const target = cols.reduce((a, b) => b.offsetHeight < a.offsetHeight ? b : a);
+      target.insertAdjacentHTML("beforeend", html);
+    });
   }
+  window.matchMedia("(max-width:760px)").addEventListener("change", renderReviews);
 
 
   // Simple two-page navigation
