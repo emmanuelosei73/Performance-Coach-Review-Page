@@ -87,7 +87,7 @@
   #view-home.active{
     display:grid;
     grid-template-rows:auto 1fr auto;
-    padding:max(24px,env(safe-area-inset-top)) 24px max(24px,env(safe-area-inset-bottom));
+    padding:max(clamp(24px,5vh,56px),env(safe-area-inset-top)) clamp(24px,7vw,128px) max(clamp(24px,5vh,56px),env(safe-area-inset-bottom));
     animation:none;
   }
   .corners{ display:flex; justify-content:space-between; align-items:flex-start; gap:16px; }
@@ -156,7 +156,7 @@
   .theme-btn .moon{ display:none; }
   :root[data-theme="light"] .theme-btn .sun{ display:none; }
   :root[data-theme="light"] .theme-btn .moon{ display:block; }
-  .theme-home{ position:absolute; top:max(24px,env(safe-area-inset-top)); left:50%; transform:translateX(-50%); z-index:2; width:38px; height:38px; border:1px solid var(--line); border-radius:50%; }
+  .theme-home{ position:absolute; top:max(clamp(24px,5vh,56px),env(safe-area-inset-top)); left:50%; transform:translateX(-50%); z-index:2; width:38px; height:38px; border:1px solid var(--line); border-radius:50%; }
   #view-home > .theme-home:not(#fx){ position:absolute; z-index:3; }
   .pill-left{ display:flex; align-items:center; gap:4px; }
   .pill-actions{ display:flex; align-items:center; gap:8px; }
