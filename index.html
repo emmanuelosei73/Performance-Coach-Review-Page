@@ -116,6 +116,20 @@
   .corner:hover::after,.corner:focus-visible::after{ transform:translate(2px,-2px); }
   @media (max-width:440px){ .corner{ font-size:17px; } .corners{ gap:10px; } }
   @media (max-width:380px){ .corner{ font-size:15.5px; } }
+  /* a brief, quiet glitch on one corner link at a time, so the eye finds them */
+  @keyframes cornerGlitch{
+    0%{ opacity:1; transform:none; text-shadow:none; background-size:0% .42em; }
+    8%{ opacity:.5; transform:translateX(-2.5px); text-shadow:2px 0 var(--olive), -2px 0 rgba(150,150,150,.45); background-size:100% .42em; }
+    18%{ opacity:1; transform:translateX(2px); text-shadow:-2px 0 var(--olive); background-size:100% .42em; }
+    28%{ opacity:.35; transform:translateX(0); text-shadow:none; background-size:100% .42em; }
+    38%{ opacity:1; transform:translateX(-1.5px); text-shadow:1.5px 0 var(--olive); background-size:100% .42em; }
+    52%{ opacity:.65; transform:translateX(1px); text-shadow:none; background-size:60% .42em; }
+    68%{ opacity:1; transform:none; text-shadow:none; background-size:20% .42em; }
+    100%{ opacity:1; transform:none; text-shadow:none; background-size:0% .42em; }
+  }
+  @keyframes arrowFlick{ 0%,100%{ transform:none; opacity:1; } 20%{ transform:translate(3px,-3px); } 40%{ opacity:.3; } 60%{ transform:translate(2px,-2px); opacity:1; } }
+  .corner.glitch{ animation:cornerGlitch .7s steps(1,end) 1; }
+  .corner.glitch::after{ animation:arrowFlick .7s steps(1,end) 1; }
   .label-link{ display:inline-block; text-decoration:none; transition:opacity .2s ease; }
   .label-link:hover,.label-link:focus-visible{ opacity:.7; text-decoration:underline; text-underline-offset:.3em; }
   .stage{ position:relative; min-height:0; margin:8px 0; }
@@ -457,7 +471,7 @@
   .toast.show{ opacity:1; transform:translate(-50%,0); }
 
   @media (prefers-reduced-motion:reduce){
-    .view.out-fwd,.view.out-back,.view.in-fwd,.view.in-back,.menu.open,.review,.note,.dossier,.dossier-card,.view.in-fwd .reticle::before,.view.in-back .reticle::before,.view.in-fwd .rows .row-item,.view.in-back .rows .row-item{ animation:none !important; }
+    .view.out-fwd,.view.out-back,.view.in-fwd,.view.in-back,.menu.open,.corner.glitch,.corner.glitch::after,.review,.note,.dossier,.dossier-card,.view.in-fwd .reticle::before,.view.in-back .reticle::before,.view.in-fwd .rows .row-item,.view.in-back .rows .row-item{ animation:none !important; }
     .corner,.btn,.row-arrow,.review{ transition:none; }
   }
 </style>
@@ -1106,6 +1120,30 @@
 
   // page change: the old page blurs and slides away, the new one blurs in. Back runs it the other way.
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  /* ---- home: a quiet glitch on one corner link at a time ---- */
+  (function(){
+    const links = () => [...document.querySelectorAll("#view-home .corner")];
+    let last = -1, first = true;
+    const pick = n => {
+      if (first){ first = false; return Math.floor(Math.random() * Math.min(2, n)); }   // open on one of the top two
+      let i; do { const r = Math.random(); i = r < 0.4 ? 0 : r < 0.8 ? 1 : 2; } while (i === last || i >= n);
+      return i;
+    };
+    function pulse(){
+      if (current === "home" && !document.hidden && !reduceMotion.matches){
+        const els = links(); if (els.length){
+          const i = pick(els.length); last = i; const el = els[i];
+          if (!el.matches(":hover")){
+            el.classList.remove("glitch"); void el.offsetWidth; el.classList.add("glitch");
+            el.addEventListener("animationend", () => el.classList.remove("glitch"), { once:true });
+          }
+        }
+      }
+      setTimeout(pulse, 4000 + Math.random() * 3000);
+    }
+    setTimeout(pulse, 2500);
+  })();
   let busy = false, pending = null;
   function animateIn(v, dir){
     v.classList.remove("in-fwd","in-back"); void v.offsetWidth;
