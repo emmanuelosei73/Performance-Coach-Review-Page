@@ -624,7 +624,7 @@
     <div class="cv-bar"><div class="seg" id="cvSeg"><button data-m="board">Board</button><button data-m="list">List</button></div></div>
     <div class="board cv-board" id="cvBoard">
       <div class="board-map"></div>
-      <div class="board-head"><b>Core Values</b><span id="cvCount"></span></div>
+      <div class="board-head"><b>Core Values</b></div>
       <button class="cv-arrow prev" id="cvPrev" aria-label="Previous value">&#8592;</button>
       <button class="cv-arrow next" id="cvNext" aria-label="Next value">&#8594;</button>
       <div class="cv-track" id="cvTrack"></div>
@@ -1084,8 +1084,10 @@
   /* ---------------- core values ---------------- */
   // TO ADD A VALUE: add a new line to this list. Title first, then one short line.
   const coreValues = [
-    { title: "Brothers in Arms", text: "Small team. Shared purpose." },
     { title: "Family", text: "The reason behind the work." },
+    { title: "Brothers in Arms", text: "Small team. Shared purpose." },
+    { title: "Discipline", text: "Plan it. Prep it. Show up." },
+    { title: "Standards", text: "Do it properly, every time." },
     { title: "Patience", text: "Real progress is slow and earned. No shortcuts." }
   ];
   document.getElementById("valuesList").innerHTML = coreValues.map((v,i) => `
@@ -1098,7 +1100,6 @@
     const view = document.getElementById("view-values");
     const track = document.getElementById("cvTrack"), dots = document.getElementById("cvDots");
     const n = coreValues.length, pad = k => String(k).padStart(2,"0");
-    document.getElementById("cvCount").textContent = pad(n) + " values";
     const rots = [-1.1, .9, -.7, 1, -.9];
     track.innerHTML = coreValues.map((v,i) => `
       <div class="cv-page"><article class="note cv-note" style="--rot:${rots[i%rots.length]}deg" tabindex="0">
