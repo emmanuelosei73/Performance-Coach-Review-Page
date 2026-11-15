@@ -184,6 +184,21 @@
   .hero-h{ position:relative; z-index:1; font-size:clamp(44px,min(8.6vw,10.5vh),120px); letter-spacing:-.055em; line-height:.98; font-weight:500; }
   .hero-h .a{ color:var(--ink); } .hero-h .b{ color:var(--grey); }
   .hero-sub{ margin-top:clamp(14px,2.6vh,26px); font-size:clamp(18px,1.7vw,24px); line-height:1.4; color:var(--body); letter-spacing:-.01em; }
+  @media (min-width:1000px){
+    .loc b{ font-size:clamp(15px,1.15vw,18px); gap:10px; }
+    .loc b::before{ width:8px; height:8px; box-shadow:0 0 0 4px rgba(174,187,126,.16); }
+    .loc span{ font-size:clamp(13px,1vw,16px); padding-left:18px; }
+    .loc{ gap:7px; }
+    .home .theme-btn, #view-home .theme-btn{ width:50px; height:50px; border-radius:14px; border:1px solid var(--line); }
+    #view-home .theme-btn svg{ width:22px; height:22px; }
+    .corner{ font-size:clamp(17px,1.4vw,21px); padding:clamp(13px,1.1vw,17px) clamp(22px,1.8vw,30px); }
+    .pills{ gap:14px; }
+    .hero .label{ font-size:clamp(14px,1.1vw,17px); }
+    .hero-sub{ font-size:clamp(20px,1.8vw,28px); }
+    .hero .hero-btn{ font-size:clamp(17px,1.4vw,21px); padding:clamp(15px,1.3vw,20px) clamp(28px,2.4vw,38px); }
+    .hs-dots button{ width:5px; height:5px; } .hs-dots button.on{ width:12px; }
+  }
+  @media (min-width:1000px) and (max-height:780px){ .corner{ padding:9px 20px; font-size:16px; } .hero .hero-btn{ padding:12px 26px; margin-top:12px; } .hero-sub{ font-size:20px; margin-top:8px; } .hs-dots{ margin-top:6px; } .reticle{ margin-bottom:8px; } .hero .label{ margin-bottom:10px; } :root{ --ph:clamp(96px,min(10.5vw,9.5vh),172px); } .pills{ padding-top:2px; } }
   .hero-cta{ margin-top:30px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
   .btn.ghost{ background:var(--card); color:var(--ink); border:1px solid var(--line); }
   .btn.ghost:hover{ background:var(--wash); }
@@ -403,7 +418,7 @@
   #view-values[data-mode="list"] .cv-board{ display:none; }
   #view-values:not([data-mode="list"]) #valuesList{ display:none; }
   .cv-board{ margin-top:18px; max-width:760px; }
-  .cv-track{ display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain; }
+  .cv-track{ position:relative; display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain; }
   .cv-track::-webkit-scrollbar{ display:none; }
   .cv-page{ flex:0 0 100%; scroll-snap-align:center; scroll-snap-stop:always; display:flex; }
   .cv-card{ width:100%; min-height:clamp(250px,36vh,320px); padding:30px 28px 24px; display:flex; flex-direction:column; border:1px solid var(--line); border-radius:26px; background:var(--card); cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent; transition:border-color .25s ease; }
@@ -777,7 +792,7 @@
 
 <template id="tpl-closer">
   <div class="closer">
-    <p class="twotone"><span class="a">Interested in training or rehab with me?</span></p>
+    <p class="twotone"><span class="a">Interested in working with me?</span></p>
     <a class="btn big" href="https://ig.me/m/eman.performancecoach" target="_blank" rel="noopener" data-track="instagram">Work With Me →</a>
   </div>
 </template>
