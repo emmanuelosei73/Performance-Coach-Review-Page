@@ -1315,6 +1315,9 @@
 
 
 
+  /* Owner shortcut: add #stats to your site address to jump to your dashboard (login required, so visitors only see a sign-in page). */
+  if (location.hash === "#stats") { location.replace("https://eman-performancecoach.goatcounter.com/"); }
+
   /* ---------------- private visitor counter (GoatCounter) ----------------
      No cookies, no personal data, and the dashboard is private to you (login only).
      Set GOATCOUNTER_CODE once you have created your free account, e.g. "emmanuel"
@@ -1394,6 +1397,11 @@
       if (e.key === "ArrowRight") animateTo(Math.round(pos) + 1); else if (e.key === "ArrowLeft") animateTo(Math.round(pos) - 1);
     });
     render();
+    /* gentle auto-swap every 12s, paused while the tab is hidden, off the home page, or being touched */
+    let timer = 0;
+    function arm(){ clearInterval(timer); if (reduce) return; timer = setInterval(() => { if (current === "home" && !document.hidden && !down) animateTo(Math.round(pos) + 1); }, 12000); }
+    ["pointerdown","keydown"].forEach(ev => document.addEventListener(ev, arm));
+    arm();
   })();
 
   /* ---------------- home: scope lock-on ---------------- */
