@@ -164,7 +164,8 @@
   @media (max-width:440px){ .loc b{ font-size:12px; letter-spacing:.16em; } .loc span{ font-size:11px; letter-spacing:.1em; } }
   .cta-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:30px; }
   .cta-row .btn{ flex:1 1 240px; justify-content:center; }
-  .cta-row + .sec-title{ margin-top:44px; }
+  .cta-note{ margin-top:14px; font-size:14px; color:var(--muted); }
+  .cta-note + .sec-title{ margin-top:40px; }
   #view-home{ touch-action:pan-y; -webkit-user-select:none; user-select:none; }
   .hs-name{ display:block; }
   .hs-stage{ display:grid; justify-items:center; }
@@ -538,6 +539,21 @@
   .disclaimer{ flex-basis:100%; max-width:62ch; margin-top:8px; font-size:12.5px; line-height:1.55; color:var(--muted); }
   .site-foot a:hover{ border-color:var(--ink); }
 
+  .msg-modal{ position:fixed; inset:0; z-index:90; display:grid; place-items:center; padding:20px; }
+  .msg-modal[hidden]{ display:none; }
+  .msg-back{ position:absolute; inset:0; background:rgba(8,9,8,.5); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); opacity:0; transition:opacity .25s ease; }
+  .msg-sheet{ position:relative; width:min(520px,100%); max-height:calc(100vh - 40px); overflow:auto; background:var(--card); color:var(--ink); border:1px solid var(--line); border-radius:26px; padding:30px 28px 26px; box-shadow:0 30px 80px rgba(0,0,0,.28); opacity:0; transform:translateY(14px); transition:opacity .28s ease, transform .28s cubic-bezier(.2,.7,.2,1); }
+  .msg-modal.open .msg-back{ opacity:1; } .msg-modal.open .msg-sheet{ opacity:1; transform:none; }
+  .msg-x{ position:absolute; top:14px; right:16px; width:36px; height:36px; border-radius:50%; font-size:24px; line-height:1; color:var(--muted); cursor:pointer; }
+  .msg-x:hover{ color:var(--ink); background:var(--wash); }
+  .msg-title{ margin:6px 0 0; font-size:clamp(28px,5vw,36px); letter-spacing:-.04em; font-weight:600; line-height:1.05; }
+  .msg-hint{ margin-top:12px; font-size:15px; color:var(--body); }
+  .msg-box{ margin-top:14px; padding:16px 18px; border:1px solid var(--line); border-radius:16px; background:var(--wash); font-size:16px; line-height:1.5; white-space:pre-line; user-select:text; -webkit-user-select:text; }
+  .msg-steps{ margin:16px 0 0; padding-left:20px; font-size:14px; line-height:1.6; color:var(--muted); }
+  .msg-go{ margin-top:22px; width:100%; justify-content:center; }
+  .msg-copy{ margin-top:10px; width:100%; justify-content:center; }
+  @media (max-width:560px){ .msg-modal{ place-items:end center; padding:0; } .msg-sheet{ border-radius:26px 26px 0 0; padding-bottom:max(26px,env(safe-area-inset-bottom)); transform:translateY(40px); } }
+  @media (prefers-reduced-motion:reduce){ .msg-back,.msg-sheet{ transition:none; } }
   .toast{ position:fixed; left:50%; bottom:max(28px,env(safe-area-inset-bottom)); transform:translate(-50%,16px); z-index:80;
     background:var(--btn-bg); color:var(--btn-fg); font-size:14px; font-weight:500; letter-spacing:-.01em; padding:12px 18px; border-radius:14px;
     opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s ease; white-space:nowrap; }
@@ -763,17 +779,17 @@
     <p class="lede">Personal training and online coaching, including rehab.</p>
 
     <div class="cta-row">
-      <a class="btn big" href="https://www.instagram.com/eman.performancecoach/" target="_blank" rel="noopener" data-track="instagram">Message me on Instagram &rarr;</a>
-      <a class="btn big ghost" href="mailto:eman.performancecoach@gmail.com?subject=Training%20enquiry" data-track="email">Email me</a>
+      <a class="btn big" href="https://www.instagram.com/eman.performancecoach/" target="_blank" rel="noopener" data-track="instagram" data-topic="Message me" data-msg="Hi Emmanuel, I hope you&#39;re well. I came across your website and I&#39;d like to find out more about working with you.&#10;&#10;Do you have time for a quick chat sometime?">Message me on Instagram &rarr;</a>
+      <a class="btn big ghost" href="mailto:eman.performancecoach@gmail.com?subject=Training%20enquiry&body=Hi%20Emmanuel%2C%0A%0AI%20hope%20you%27re%20well.%20I%20came%20across%20your%20website%20and%20I%27d%20like%20to%20find%20out%20more%20about%20working%20with%20you.%20Do%20you%20have%20time%20for%20a%20quick%20chat%20sometime%3F%0A%0AThanks" data-track="email">Email me</a>
     </div>
 
     <h2 class="sec-title">Select your loadout</h2>
     <div class="rows">
-      <a class="row-item" href="https://www.instagram.com/eman.performancecoach/" target="_blank" rel="noopener" data-track="instagram">
+      <a class="row-item" href="https://www.instagram.com/eman.performancecoach/" target="_blank" rel="noopener" data-track="instagram" data-topic="Personal training" data-msg="Hi Emmanuel, I hope you&#39;re well. I came across your website and I&#39;m interested in personal training.&#10;&#10;Do you have time for a quick chat sometime?">
         <div class="row-top"><span class="row-title">Personal training</span><span class="row-arrow" aria-hidden="true">&#8599;</span></div>
         <p class="row-desc">1 - 1 coaching built around your goals, including rehab.</p>
       </a>
-      <a class="row-item" href="https://www.instagram.com/eman.performancecoach/" target="_blank" rel="noopener" data-track="instagram">
+      <a class="row-item" href="https://www.instagram.com/eman.performancecoach/" target="_blank" rel="noopener" data-track="instagram" data-topic="Online coaching" data-msg="Hi Emmanuel, I hope you&#39;re well. I came across your website and I&#39;m interested in online coaching.&#10;&#10;Do you have time for a quick chat sometime?">
         <div class="row-top"><span class="row-title">Online coaching</span><span class="row-arrow" aria-hidden="true">&#8599;</span></div>
         <p class="row-desc">A structured plan you can follow anywhere.</p>
       </a>
@@ -788,12 +804,26 @@
 
 </main>
 
+<div class="msg-modal" id="msgModal" role="dialog" aria-modal="true" aria-labelledby="msgTitle" hidden>
+  <div class="msg-back" data-close></div>
+  <div class="msg-sheet">
+    <button class="msg-x" type="button" data-close aria-label="Close">&times;</button>
+    <p class="label">Message me on Instagram</p>
+    <h3 class="msg-title" id="msgTitle">Personal training</h3>
+    <p class="msg-hint">Here is a message you can send me. It will be copied for you.</p>
+    <div class="msg-box" id="msgText"></div>
+    <ol class="msg-steps"><li>Tap the button below and the message is copied.</li><li>Instagram opens on my profile.</li><li>Tap Message, paste it in and press send.</li></ol>
+    <a class="btn big msg-go" id="msgGo" href="https://www.instagram.com/eman.performancecoach/" target="_blank" rel="noopener">Copy and open Instagram &rarr;</a>
+    <button class="btn ghost msg-copy" id="msgCopy" type="button">Just copy the message</button>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <template id="tpl-closer">
   <div class="closer">
     <p class="twotone"><span class="a">Interested in working with me?</span></p>
-    <a class="btn big" href="https://www.instagram.com/eman.performancecoach/" target="_blank" rel="noopener" data-track="instagram">Work With Me →</a>
+    <a class="btn big" href="https://www.instagram.com/eman.performancecoach/" target="_blank" rel="noopener" data-track="instagram" data-topic="Message me" data-msg="Hi Emmanuel, I hope you&#39;re well. I came across your website and I&#39;d like to find out more about working with you.&#10;&#10;Do you have time for a quick chat sometime?">Work With Me →</a>
   </div>
 </template>
 <template id="tpl-foot">
@@ -1115,6 +1145,30 @@
       document.body.appendChild(ta); ta.select(); const ok = document.execCommand("copy"); ta.remove(); return ok;
     } catch (e) { return false; }
   }
+  /* ---------------- message pop-up (copy, then open Instagram) ---------------- */
+  (function(){
+    const modal = document.getElementById("msgModal"); if (!modal) return;
+    const titleEl = document.getElementById("msgTitle"), textEl = document.getElementById("msgText"), go = document.getElementById("msgGo"), cp = document.getElementById("msgCopy");
+    let lastFocus = null, msg = "";
+    function open(a){
+      lastFocus = document.activeElement; msg = a.dataset.msg || "";
+      titleEl.textContent = a.dataset.topic || "Message me"; textEl.textContent = msg;
+      modal.hidden = false; void modal.offsetWidth; modal.classList.add("open"); document.body.style.overflow = "hidden"; setTimeout(() => go.focus({ preventScroll:true }), 30);
+    }
+    function close(){
+      modal.classList.remove("open"); document.body.style.overflow = "";
+      setTimeout(() => { modal.hidden = true; }, 260); if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll:true });
+    }
+    document.addEventListener("click", e => {
+      const a = e.target.closest && e.target.closest("a[data-msg]");
+      if (a){ e.preventDefault(); open(a); }
+    });
+    modal.addEventListener("click", e => { if (e.target.closest("[data-close]")) close(); });
+    go.addEventListener("click", () => { copyText(msg).then(ok => { if (ok) showToast("Message copied. Paste it in the chat"); }); setTimeout(close, 200); });
+    cp.addEventListener("click", () => { copyText(msg).then(ok => showToast(ok ? "Message copied" : "Could not copy, select the text instead")); });
+    document.addEventListener("keydown", e => { if (!modal.hidden && e.key === "Escape") close(); });
+  })();
+
   document.addEventListener("click", async e => {
     const a = e.target.closest && e.target.closest("a[data-copy]");
     if (!a) return;
